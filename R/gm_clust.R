@@ -30,9 +30,9 @@ gm_clust <- function(df) {
 
   # Create a table where all leading edge genes are in rows -------------------
   gsea_tokens <- df %>%
-    unnest_tokens(output = lead_genes,
-                  input = core_enrichment,
-                  to_lower = FALSE) %>%
+    tidytext::unnest_tokens(output = lead_genes,
+                            input = core_enrichment,
+                            to_lower = FALSE) %>%
     group_by(ID) %>%
     count(lead_genes)
 

@@ -29,19 +29,21 @@ gm_enrichterms <- function(df,
                            col_pos = 'red',
                            col_neg = 'blue') {
 
+  stopifnot(is.data.frame(df) | class(hc) != 'hclust')
+
   # Get the cluster groups from  gm_clust object ------------------------------
-  clust_groups <- data.frame(cluster=cutree(hc, h = 0.999)) %>%
+  clust_groups <- data.frame(Cluster=cutree(hc, h = 0.999)) %>%
     rownames_to_column('ID') %>%
-    arrange(cluster) %>%
+    arrange(Cluster) %>%
     left_join(df, by='ID')
 
   # Obtain the terms of each gene set -----------------------------------------
   stop_words <- readRDS(file = 'R/stop_words.rds')
 
   clust_groups_wordcloud <- clust_groups %>%
-    mutate(enrichment = ifelse(test = NES > 0,
-                               yes= 'pos',
-                               no = 'neg')) %>%
+    mutate(Enrichment = ifelse(test = NES > 0,
+                               yes= 'Pos',
+                               no = 'Neg')) %>%
     # separate the words of the geneset
     mutate(ID2 = str_replace_all(ID,
                                  pattern='_',
@@ -61,14 +63,14 @@ gm_enrichterms <- function(df,
     # eliminate words that are just numbers
     filter(!grepl('^\\d', monogram)) %>%
     # group by cluster and count how many words
-    group_by(cluster, enrichment) %>%
+    group_by(Cluster, Enrichment) %>%
     count(monogram, sort = TRUE)
 
   # Plot enriched terms wordclouds using ggwordcloud --------------------------
   plot <- ggplot(clust_groups_wordcloud,
                  aes(label = monogram,
                      size = n,
-                     col = enrichment)) +
+                     col = Enrichment)) +
     # rm_outside option eliminates words that do not fit in the image
     ggwordcloud::geom_text_wordcloud_area(eccentricity = 1,
                                           area_corr_power = 1,
@@ -83,7 +85,7 @@ gm_enrichterms <- function(df,
   if (clust == TRUE) {
     plot +
       ggtitle('Gene Sets Enriched Terms  by Cluster') +
-      facet_wrap(enrichment ~ cluster,
+      facet_wrap(Enrichment ~ Cluster,
                  labeller = label_both)
   } else {
     plot +

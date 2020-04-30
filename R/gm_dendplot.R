@@ -27,6 +27,8 @@ gm_dendplot <- function(df,
                         col_neg ='blue',
                         rect = TRUE) {
 
+  stopifnot(is.data.frame(df) | class(hc) != 'hclust')
+
   # Convert hc in a dendrogram object to be visualized by dendextend
   dend <- hc %>% as.dendrogram()
 

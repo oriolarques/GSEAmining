@@ -24,21 +24,23 @@
 #'
 #'
 gm_enrichcores <- function(df,
-                          hc,
-                          clust = TRUE,
-                          col_pos = 'red',
-                          col_neg = 'blue',
-                          top = 3) {
+                           hc,
+                           clust = TRUE,
+                           col_pos = 'red',
+                           col_neg = 'blue',
+                           top = 3) {
+
+  stopifnot(is.data.frame(df) | class(hc) != 'hclust')
 
   # Get the cluster groups from  gm_clust object ------------------------------
-  clust_groups <- data.frame(cluster=cutree(hc, h = 0.999)) %>%
+  clust_groups <- data.frame(Cluster=cutree(hc, h = 0.999)) %>%
     rownames_to_column('ID') %>%
-    arrange(cluster) %>%
+    arrange(Cluster) %>%
     left_join(df, by='ID')
 
   # Obtain core enrichment terms of each gene set -----------------------------
   clust_lead <- clust_groups %>%
-    mutate(enrichment = ifelse(NES > 0, 'pos', 'neg')) %>%
+    mutate(Enrichment = ifelse(NES > 0, 'Pos', 'Neg')) %>%
     # separate the words of the core enrichment
     mutate(core_enrichment = str_replace_all(core_enrichment,
                                              pattern='/',
@@ -50,10 +52,10 @@ gm_enrichcores <- function(df,
                             n = 1,
                             to_lower = FALSE) %>%
     # group by cluster and count how many words
-    group_by(cluster, enrichment) %>%
+    group_by(Cluster, Enrichment) %>%
     count(lead_token, sort = TRUE) %>%
     # Select top n most common leading edge genes per cluster
-    arrange(cluster) %>%
+    arrange(Cluster) %>%
     top_n(n = top)
 
 
@@ -61,7 +63,7 @@ gm_enrichcores <- function(df,
   plot <- ggplot(clust_lead,
                  aes(x = reorder(lead_token, n),
                      y = n,
-                     fill = enrichment)) +
+                     fill = Enrichment)) +
     geom_bar(stat = 'identity') +
     coord_flip() +
     scale_fill_manual(values = c(col_neg, col_pos)) +
@@ -79,7 +81,7 @@ gm_enrichcores <- function(df,
     plot +
       ggtitle('Top Genes in Leading Edge Analysis by Cluster') +
       theme(legend.position = 'none') +
-      facet_wrap(enrichment ~ cluster,
+      facet_wrap(Enrichment ~ Cluster,
                  labeller= label_both,
                  scales = 'free_y')
   } else {
