@@ -21,6 +21,9 @@ Imports:
     dplyr,
     tidytext,
     dendextend,
-    tibble
+    tibble,
+    ggplot2,
+    ggwordcloud,
+    stringr
 Depends: 
     R (>= 2.10)

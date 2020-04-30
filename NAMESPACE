@@ -2,8 +2,13 @@
 
 export(gm_clust)
 export(gm_dendplot)
+export(gm_enrichcores)
+export(gm_enrichterms)
 import(dendextend)
 import(dplyr)
+import(ggplot2)
+import(ggwordcloud)
+import(stringr)
 import(tibble)
 import(tidytext)
 importFrom(stats,dist)

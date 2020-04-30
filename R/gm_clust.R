@@ -24,11 +24,11 @@
 #'
 #'
 #'
-gm_clust <- function(df){
+gm_clust <- function(df) {
 
   stopifnot(is.data.frame(df))
 
-  # Create a table where all leading edge genes are in rows ----------------
+  # Create a table where all leading edge genes are in rows -------------------
   gsea_tokens <- df %>%
     unnest_tokens(output = lead_genes,
                   input = core_enrichment,
@@ -36,13 +36,13 @@ gm_clust <- function(df){
     group_by(ID) %>%
     count(lead_genes)
 
-  # Casting tidytext data into a matrix ------------------------------------
+  # Casting tidytext data into a matrix ---------------------------------------
   cast_matrix <- cast_dtm(data = gsea_tokens,
                           document = ID,
                           term = lead_genes,
                           value = n)
 
-  # Hierarchical clustering -----------------------------------------------
+  # Hierarchical clustering ---------------------------------------------------
   distance_matrix <- dist(cast_matrix, method = 'binary')
 
   hc <- hclust(distance_matrix)
