@@ -7,5 +7,5 @@ Gene Set Enrichment Analyses (GSEA), although designed to help
   gene set collections, such as those in the Molecular Signatures Database 
   (MSigDB), are emerging. Unfortunately, analysis of such collections are not
   always straightforward or can be more challenging using currently available 
-  tools. GSEAmining wants to provide an easy tool to produce reproducible 
+  tools. GSEAmining is born to be an easy tool to produce reproducible 
   reports from the output files of GSEA and leading edge analysis. 
