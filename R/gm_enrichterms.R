@@ -11,9 +11,9 @@
 #' @param hc The output of gm_clust, which is an hclust class object.
 #' @param clust A logical value indicating if wordclouds should be separated by
 #' clusters or not. Default value is TRUE.
-#' @param col_pos Color to represent the positively enriched gene sets. Default
+#' @param col_pos Color to represent positively enriched gene sets. Default
 #' is red.
-#' @param col_neg Color to represent the negatively enriched gene sets. Default
+#' @param col_neg Color to represent negatively enriched gene sets. Default
 #' is blue.
 #'
 #' @return
@@ -32,42 +32,13 @@ gm_enrichterms <- function(df,
   stopifnot(is.data.frame(df) | class(hc) != 'hclust')
 
   # Get the cluster groups from  gm_clust object ------------------------------
-  clust_groups <- data.frame(Cluster=cutree(hc, h = 0.999)) %>%
-    rownames_to_column('ID') %>%
-    arrange(Cluster) %>%
-    left_join(df, by='ID')
+  clust.groups <- clust_groups(df, hc)
 
   # Obtain the terms of each gene set -----------------------------------------
-  stop_words <- readRDS(file = 'R/stop_words.rds')
-
-  clust_groups_wordcloud <- clust_groups %>%
-    mutate(Enrichment = ifelse(test = NES > 0,
-                               yes= 'Pos',
-                               no = 'Neg')) %>%
-    # separate the words of the geneset
-    mutate(ID2 = str_replace_all(ID,
-                                 pattern='_',
-                                 replacement = ' ')) %>%
-    # eliminate the first word of the geneset
-    mutate(ID2 = word(.$ID2,
-                      start = 2,
-                      end = -1)) %>%
-    # create word tokens (one row per word)
-    tidytext::unnest_tokens(monogram,
-                            ID2,
-                            token = 'ngrams',
-                            n = 1,
-                            to_lower = FALSE) %>%
-    # eliminate words like UP, DW, BY ...
-    filter(!monogram %in% stop_words$word) %>%
-    # eliminate words that are just numbers
-    filter(!grepl('^\\d', monogram)) %>%
-    # group by cluster and count how many words
-    group_by(Cluster, Enrichment) %>%
-    count(monogram, sort = TRUE)
+  clust.groups.wordcloud <- clust_group_terms(clust.groups)
 
   # Plot enriched terms wordclouds using ggwordcloud --------------------------
-  plot <- ggplot(clust_groups_wordcloud,
+  plot <- ggplot(clust.groups.wordcloud,
                  aes(label = monogram,
                      size = n,
                      col = Enrichment)) +

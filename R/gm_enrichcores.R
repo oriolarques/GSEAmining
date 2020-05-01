@@ -11,11 +11,11 @@
 #' @param hc The output of gm_clust, which is an hclust class object.
 #' @param clust A logical value indicating if wordclouds should be separated by
 #' clusters or not. Default value is TRUE.
-#' @param col_pos Color to represent the positively enriched gene sets. Default
+#' @param col_pos Color to represent positively enriched gene sets. Default
 #' is red.
-#' @param col_neg Color to represent the negatively enriched gene sets. Default
+#' @param col_neg Color to represent negatively enriched gene sets. Default
 #' is blue.
-#' @param top An integer to choose he top most enriched genes to plot per
+#' @param top An integer to choose the top most enriched genes to plot per
 #' cluster. The default parameter are the top 3.
 #'
 #' @return
@@ -33,34 +33,13 @@ gm_enrichcores <- function(df,
   stopifnot(is.data.frame(df) | class(hc) != 'hclust')
 
   # Get the cluster groups from  gm_clust object ------------------------------
-  clust_groups <- data.frame(Cluster=cutree(hc, h = 0.999)) %>%
-    rownames_to_column('ID') %>%
-    arrange(Cluster) %>%
-    left_join(df, by='ID')
+  clust.groups <- clust_groups(df, hc)
 
   # Obtain core enrichment terms of each gene set -----------------------------
-  clust_lead <- clust_groups %>%
-    mutate(Enrichment = ifelse(NES > 0, 'Pos', 'Neg')) %>%
-    # separate the words of the core enrichment
-    mutate(core_enrichment = str_replace_all(core_enrichment,
-                                             pattern='/',
-                                             replacement = ' ')) %>%
-    # create gene word tokens (one row per word)
-    tidytext::unnest_tokens(lead_token,
-                            core_enrichment,
-                            token = 'ngrams',
-                            n = 1,
-                            to_lower = FALSE) %>%
-    # group by cluster and count how many words
-    group_by(Cluster, Enrichment) %>%
-    count(lead_token, sort = TRUE) %>%
-    # Select top n most common leading edge genes per cluster
-    arrange(Cluster) %>%
-    top_n(n = top)
-
+  clust.lead <- clust_group_cores(clust.groups, top)
 
   # Bar plot of top n core enrichment gens ------------------------------------
-  plot <- ggplot(clust_lead,
+  plot <- ggplot(clust.lead,
                  aes(x = reorder(lead_token, n),
                      y = n,
                      fill = Enrichment)) +

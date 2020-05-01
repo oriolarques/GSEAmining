@@ -16,10 +16,10 @@ of each gene set separated by '/'.}
 \item{clust}{A logical value indicating if wordclouds should be separated by
 clusters or not. Default value is TRUE.}
 
-\item{col_pos}{Color to represent the positively enriched gene sets. Default
+\item{col_pos}{Color to represent positively enriched gene sets. Default
 is red.}
 
-\item{col_neg}{Color to represent the negatively enriched gene sets. Default
+\item{col_neg}{Color to represent negatively enriched gene sets. Default
 is blue.}
 }
 \value{
