@@ -1,5 +1,4 @@
 # GSEAmining
-
 Make biological sense of Gene Set Enrichment Analysis outputs
 
 Gene Set Enrichment Analyses (GSEA), although designed to help
