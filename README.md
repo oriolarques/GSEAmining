@@ -1,5 +1,7 @@
 # GSEAmining
 
+Make biological sense of Gene Set Enrichment Analysis outputs
+
 Gene Set Enrichment Analyses (GSEA), although designed to help
   researchers to interpret gene expression data, can be difficult to interpret.
   Many available tools rely on Gene Ontology (GO) classification to reduce
