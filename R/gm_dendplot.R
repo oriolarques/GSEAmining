@@ -11,8 +11,13 @@
 #' is red.
 #' @param col_neg Color to represent the negatively enriched gene sets. Default
 #' is blue.
+#' @param dend_len An integer that defines the length of the dendrogram. Default
+#' value is 30. The closest to zero the longest the dendrogram.
 #' @param rect A logical value indicating if rectangles should be drawn around
 #' the clusters to help differentiating them. By default it is set to TRUE.
+#' @param rect_len An integer to specify the length of the rectangle around the
+#' cluster and the gene set label. Default is 2. The closest to zero the
+#' smallest the rectangle.
 #'
 #' @return
 #' @export
@@ -25,7 +30,9 @@ gm_dendplot <- function(df,
                         hc,
                         col_pos = 'red',
                         col_neg ='blue',
-                        rect = TRUE) {
+                        dend_len = 30,
+                        rect = TRUE,
+                        rect_len = 2) {
 
   stopifnot(is.data.frame(df) | class(hc) != 'hclust')
 
@@ -71,7 +78,7 @@ gm_dendplot <- function(df,
     arrange(desc(cluster))
 
   # Plot the clusters   -------------------------------------------------------
-  par(mar = c(5.1,2,2,15)) # set the margins c(5.1,1,2,2,15)
+  par(mar = c(5.1,2,2,dend_len)) # set the margins
   dend %>%
     set("labels_cex", 0.45) %>%
     set('labels_col', dend_label_col) %>%
@@ -91,10 +98,7 @@ gm_dendplot <- function(df,
                                 green =  0.2,
                                 blue =  0.4,
                                 alpha = 0.1),
-                      text = dend_clust_col[,1],
-                      text_cex = 1,
-                      text_col = 1,
-                      lower_rect = -0.4,
+                      lower_rect = -rect_len,
                       horiz = TRUE)
   }
 }

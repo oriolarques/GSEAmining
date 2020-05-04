@@ -27,6 +27,8 @@ clust_group_cores <- function(cg,
                             token = 'ngrams',
                             n = 1,
                             to_lower = FALSE) %>%
+    # eliminate tokens that are just numbers
+    filter(!grepl('^\\d', lead_token)) %>%
     # group by cluster and count how many words
     group_by(Cluster, Enrichment) %>%
     count(lead_token, sort = TRUE) %>%

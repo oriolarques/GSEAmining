@@ -11,7 +11,7 @@
 #'
 clust_group_terms <- function(cg) {
   # Obtain the terms of each gene set -----------------------------------------
-  stop_words <- readRDS(file = 'R/stop_words.rds')
+  stop.words <- stop_words()
 
   clust_groups_wordcloud <- cg %>%
     mutate(Enrichment = ifelse(test = NES > 0,
@@ -32,7 +32,7 @@ clust_group_terms <- function(cg) {
                             n = 1,
                             to_lower = FALSE) %>%
     # eliminate words like UP, DW, BY ...
-    filter(!monogram %in% stop_words$word) %>%
+    filter(!monogram %in% stop.words$word) %>%
     # eliminate words that are just numbers
     filter(!grepl('^\\d', monogram)) %>%
     # group by cluster and count how many words

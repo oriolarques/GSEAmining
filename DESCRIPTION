@@ -13,7 +13,7 @@ Description: Gene Set Enrichment Analyses (GSEA), although designed to help
   always straightforward or can be more challenging using currently available 
   tools. GSEAmining wants to provide an easy tool to produce reproducible 
   reports from the output files of GSEA and leading edge analysis. 
-License: GPL-3
+License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0

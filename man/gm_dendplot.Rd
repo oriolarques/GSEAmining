@@ -4,7 +4,15 @@
 \alias{gm_dendplot}
 \title{gm_dendplot: GSEAmining dendrogram plotter}
 \usage{
-gm_dendplot(df, hc, col_pos = "red", col_neg = "blue", rect = TRUE)
+gm_dendplot(
+  df,
+  hc,
+  col_pos = "red",
+  col_neg = "blue",
+  dend_len = 30,
+  rect = TRUE,
+  rect_len = 2
+)
 }
 \arguments{
 \item{df}{Data frame that contains at least an ID column for the gene set
@@ -19,8 +27,14 @@ is red.}
 \item{col_neg}{Color to represent the negatively enriched gene sets. Default
 is blue.}
 
+\item{dend_len}{An integer that defines the length of the dendrogram. Default
+value is 30.}
+
 \item{rect}{A logical value indicating if rectangles should be drawn around
 the clusters to help differentiating them. By default it is set to TRUE.}
+
+\item{rect_len}{An integer to specify the length of the rectangle around the
+cluster and the gene set label. Default is 2.}
 }
 \value{
 
