@@ -33,11 +33,17 @@ is blue.}
 cluster. The default parameter are the top 3.}
 }
 \value{
-
+Returns a ggplot object.
 }
 \description{
 Takes the output of gm_clust, which is an hclust class object,
 and plots the top n genes in core enrichment (leading edge analysis).
 Two options are available, either separate barplots by clusters or all
 together in one plot.
+}
+\examples{
+data(genesets_sel)
+gs.cl <- gm_clust(genesets_sel)
+gm_enrichcores(genesets_sel, gs.cl)
+
 }

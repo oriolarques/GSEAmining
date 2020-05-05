@@ -10,8 +10,8 @@
 #' of each gene set separated by '/'.
 #'
 #'
-#' @return A hclust class object with the clustering of the gene sets
-#'  by the core enriched genes.
+#' @return An object of class hclust that contains the clustering of the gene
+#' sets by the core enriched genes.
 #'
 #' @export
 #'
@@ -19,9 +19,11 @@
 #' @import tidytext
 #' @importFrom stats dist
 #' @importFrom stats hclust
+#' @importFrom rlang .data
 #'
-#'
-#'
+#' @examples
+#' data(genesets_sel)
+#' gs.cl <- gm_clust(genesets_sel)
 #'
 #'
 gm_clust <- function(df) {
@@ -30,16 +32,16 @@ gm_clust <- function(df) {
 
   # Create a table where all leading edge genes are in rows -------------------
   gsea_tokens <- df %>%
-    tidytext::unnest_tokens(output = lead_genes,
-                            input = core_enrichment,
+    tidytext::unnest_tokens(output = .data$lead_genes,
+                            input = .data$core_enrichment,
                             to_lower = FALSE) %>%
-    group_by(ID) %>%
-    count(lead_genes)
+    group_by(.data$ID) %>%
+    count(.data$lead_genes)
 
   # Casting tidytext data into a matrix ---------------------------------------
   cast_matrix <- cast_dtm(data = gsea_tokens,
-                          document = ID,
-                          term = lead_genes,
+                          document = .data$ID,
+                          term = .data$lead_genes,
                           value = n)
 
   # Hierarchical clustering ---------------------------------------------------

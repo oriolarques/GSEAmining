@@ -10,7 +10,7 @@ clust_group_terms(cg)
 \item{cg}{A data frame output from the GSEAmining cluster_groups function.}
 }
 \value{
-
+A tibble with four variables (Cluster, Enrichment, monogram, n)
 }
 \description{
 Takes the output of clust_groups, a data frame , and process

@@ -23,11 +23,17 @@ is red.}
 is blue.}
 }
 \value{
-
+Returns a ggplot object.
 }
 \description{
 Takes the output of gm_clust, which is an hclust class object,
 and plots gene set enriched terms as wordclouds. Two options are available,
 either separate enrichments by clusters or plot them together in a single
 plot.
+}
+\examples{
+data(genesets_sel)
+gs.cl <- gm_clust(genesets_sel)
+gm_enrichterms(genesets_sel, gs.cl)
+
 }

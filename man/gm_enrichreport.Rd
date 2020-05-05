@@ -32,11 +32,17 @@ cluster. The default parameter are the top 3.}
 \item{output}{A string to name the output pdf file.}
 }
 \value{
-
+Generates a pdf file.
 }
 \description{
 Takes the output of gm_clust, which is an hclust class object,
 and creates a report in pdf that contains enriched terms and enriched core
 genes in gene sets for each cluster. The results of each cluster are plotted
 in an independent page.
+}
+\examples{
+#' data(genesets_sel)
+gs.cl <- gm_clust(genesets_sel)
+\dontrun{gm_enrichreport(genesets_sel, gs.cl)}
+
 }

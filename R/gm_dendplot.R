@@ -19,12 +19,18 @@
 #' cluster and the gene set label. Default is 2. The closest to zero the
 #' smallest the rectangle.
 #'
-#' @return
+#' @return Invisibly returns a list with all the elements necessary to plot
+#' a dendrogram.
+#'
 #' @export
 #'
 #' @import tibble
 #' @import dendextend
 #'
+#' @examples
+#' data(genesets_sel)
+#' gs.cl <- gm_clust(genesets_sel)
+#' gm_dendplot(genesets_sel, gs.cl)
 #'
 gm_dendplot <- function(df,
                         hc,
@@ -37,7 +43,7 @@ gm_dendplot <- function(df,
   stopifnot(is.data.frame(df) | class(hc) != 'hclust')
 
   # Convert hc in a dendrogram object to be visualized by dendextend
-  dend <- hc %>% as.dendrogram()
+  dend <- hc %>% stats::as.dendrogram()
 
   # Color of the labels: Red=positively enriched / Blue = negatively enriched
   #   Get the order of the genesets in the cluster
@@ -46,8 +52,8 @@ gm_dendplot <- function(df,
   # Create an object from geneset table and assign the color ------------------
   #   depending if NES < | > 0
   dend_label_col <- df %>%
-    select(ID, NES) %>%
-    mutate(color = ifelse(NES > 0, col_pos, col_neg))
+    select(.data$ID, .data$NES) %>%
+    mutate(color = ifelse(.data$NES > 0, col_pos, col_neg))
 
   #   Order the rows by the order of the genesets in the cluster
   dend_label_col <- dend_label_col[match(dend_order,
@@ -67,18 +73,18 @@ gm_dendplot <- function(df,
   # Join the cluster column to the geneset table ------------------------------
   dend_clust_col <- dend_clust_col%>%
     left_join(df, by=c('geneset'='ID')) %>%
-    select(geneset, NES, cluster) %>%
+    select(.data$geneset, .data$NES, .data$cluster) %>%
     # Define the color that each geneset has depending on NES
-    mutate(color = ifelse(NES > 0, col_pos, col_neg)) %>%
-    select(cluster, color) %>%
+    mutate(color = ifelse(.data$NES > 0, col_pos, col_neg)) %>%
+    select(.data$cluster, .data$color) %>%
     # Since positive and negative genesets cluster together eliminate duplicates
     unique() %>%
     # Sort the rows by cluster in descendant order
     # That's how dendextend reads clusters
-    arrange(desc(cluster))
+    arrange(desc(.data$cluster))
 
   # Plot the clusters   -------------------------------------------------------
-  par(mar = c(5.1,2,2,dend_len)) # set the margins
+  graphics::par(mar = c(5.1,2,2,dend_len)) # set the margins
   dend %>%
     set("labels_cex", 0.45) %>%
     set('labels_col', dend_label_col) %>%
@@ -94,10 +100,10 @@ gm_dendplot <- function(df,
                                   to = length((dend_clust_col[,1])),
                                   by = 2),
                       border = 0,
-                      col = rgb(red = 0.1,
-                                green =  0.2,
-                                blue =  0.4,
-                                alpha = 0.1),
+                      col = grDevices::rgb(red = 0.1,
+                                           green =  0.2,
+                                           blue =  0.4,
+                                           alpha = 0.1),
                       lower_rect = -rect_len,
                       horiz = TRUE)
   }

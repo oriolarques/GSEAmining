@@ -28,18 +28,26 @@ is red.}
 is blue.}
 
 \item{dend_len}{An integer that defines the length of the dendrogram. Default
-value is 30.}
+value is 30. The closest to zero the longest the dendrogram.}
 
 \item{rect}{A logical value indicating if rectangles should be drawn around
 the clusters to help differentiating them. By default it is set to TRUE.}
 
 \item{rect_len}{An integer to specify the length of the rectangle around the
-cluster and the gene set label. Default is 2.}
+cluster and the gene set label. Default is 2. The closest to zero the
+smallest the rectangle.}
 }
 \value{
-
+Invisibly returns a list with all the elements necessary to plot
+a dendrogram.
 }
 \description{
 Takes the output of gm_clust, which is an hclust class object,
 and plots the dendrogram using the dendextend package.
+}
+\examples{
+data(genesets_sel)
+gs.cl <- gm_clust(genesets_sel)
+gm_dendplot(genesets_sel, gs.cl)
+
 }

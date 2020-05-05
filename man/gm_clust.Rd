@@ -12,12 +12,18 @@ names and a core_enrichment column containing the genes in the leading edge
 of each gene set separated by '/'.}
 }
 \value{
-A hclust class object with the clustering of the gene sets
- by the core enriched genes.
+An object of class hclust that contains the clustering of the gene
+sets by the core enriched genes.
 }
 \description{
 From the results of GSEA analysis, a data frame:
 1. Tokenizes the core-enrichment column.
 2. Cast the new table into a matrix.
 3. Returns and hclust object.
+}
+\examples{
+data(genesets_sel)
+gs.cl <- gm_clust(genesets_sel)
+
+
 }

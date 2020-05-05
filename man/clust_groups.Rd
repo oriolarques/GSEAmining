@@ -14,7 +14,7 @@ of each gene set separated by '/'.}
 \item{hc}{The output of gm_clust, which is an hclust class object.}
 }
 \value{
-
+A data.frame containing the cluster each gene set belongs to.
 }
 \description{
 Takes the output of gm_clust, which is an hclust class object,

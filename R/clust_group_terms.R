@@ -6,7 +6,8 @@
 #'
 #' @param cg A data frame output from the GSEAmining cluster_groups function.
 #'
-#' @return
+#' @return  A tibble with four variables (Cluster, Enrichment, monogram, n)
+#'
 #' @export
 #'
 clust_group_terms <- function(cg) {
@@ -14,29 +15,29 @@ clust_group_terms <- function(cg) {
   stop.words <- stop_words()
 
   clust_groups_wordcloud <- cg %>%
-    mutate(Enrichment = ifelse(test = NES > 0,
+    mutate(Enrichment = ifelse(test = .data$NES > 0,
                                yes= 'Pos',
                                no = 'Neg')) %>%
     # separate the words of the geneset
-    mutate(ID2 = str_replace_all(ID,
+    mutate(ID2 = str_replace_all(.data$ID,
                                  pattern='_',
                                  replacement = ' ')) %>%
     # eliminate the first word of the geneset
-    mutate(ID2 = word(.$ID2,
+    mutate(ID2 = word(.data$ID2,
                       start = 2,
                       end = -1)) %>%
     # create word tokens (one row per word)
-    tidytext::unnest_tokens(monogram,
-                            ID2,
+    tidytext::unnest_tokens(.data$monogram,
+                            .data$ID2,
                             token = 'ngrams',
                             n = 1,
                             to_lower = FALSE) %>%
     # eliminate words like UP, DW, BY ...
-    filter(!monogram %in% stop.words$word) %>%
+    filter(!.data$monogram %in% stop.words$word) %>%
     # eliminate words that are just numbers
-    filter(!grepl('^\\d', monogram)) %>%
+    filter(!grepl('^\\d', .data$monogram)) %>%
     # group by cluster and count how many words
-    group_by(Cluster, Enrichment) %>%
-    count(monogram, sort = TRUE)
+    group_by(.data$Cluster, .data$Enrichment) %>%
+    count(.data$monogram, sort = TRUE)
 
 }

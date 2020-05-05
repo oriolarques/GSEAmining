@@ -18,10 +18,17 @@
 #' @param top An integer to choose the top most enriched genes to plot per
 #' cluster. The default parameter are the top 3.
 #'
-#' @return
+#' @return Returns a ggplot object.
+#'
 #' @export
 #'
+#' @importFrom grDevices rgb
+#' @importFrom graphics par
 #'
+#' @examples
+#' data(genesets_sel)
+#' gs.cl <- gm_clust(genesets_sel)
+#' gm_enrichcores(genesets_sel, gs.cl)
 #'
 gm_enrichcores <- function(df,
                            hc,
@@ -40,9 +47,9 @@ gm_enrichcores <- function(df,
 
   # Bar plot of top n core enrichment gens ------------------------------------
   plot <- ggplot(clust.lead,
-                 aes(x = reorder(lead_token, n),
-                     y = n,
-                     fill = Enrichment)) +
+                 aes(x = stats::reorder(.data$lead_token, .data$n),
+                     y = .data$n,
+                     fill = .data$Enrichment)) +
     geom_bar(stat = 'identity') +
     coord_flip() +
     scale_fill_manual(values = c(col_neg, col_pos)) +

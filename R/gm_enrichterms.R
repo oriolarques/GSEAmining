@@ -16,12 +16,18 @@
 #' @param col_neg Color to represent negatively enriched gene sets. Default
 #' is blue.
 #'
-#' @return
+#' @return Returns a ggplot object.
+#'
 #' @export
 #'
 #' @import stringr
 #' @import ggwordcloud
 #' @import ggplot2
+#'
+#' @examples
+#' data(genesets_sel)
+#' gs.cl <- gm_clust(genesets_sel)
+#' gm_enrichterms(genesets_sel, gs.cl)
 #'
 gm_enrichterms <- function(df,
                            hc,
@@ -39,9 +45,9 @@ gm_enrichterms <- function(df,
 
   # Plot enriched terms wordclouds using ggwordcloud --------------------------
   plot <- ggplot(clust.groups.wordcloud,
-                 aes(label = monogram,
-                     size = n,
-                     col = Enrichment)) +
+                 aes(label = .data$monogram,
+                     size = .data$n,
+                     col = .data$Enrichment)) +
     # rm_outside option eliminates words that do not fit in the image
     ggwordcloud::geom_text_wordcloud_area(eccentricity = 1,
                                           area_corr_power = 1,

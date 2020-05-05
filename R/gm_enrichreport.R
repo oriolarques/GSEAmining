@@ -17,10 +17,15 @@
 #' cluster. The default parameter are the top 3.
 #' @param output A string to name the output pdf file.
 #'
-#' @return
+#' @return  Generates a pdf file.
 #' @export
 #'
 #' @importFrom gridExtra marrangeGrob
+#'
+#' @examples
+#' #' data(genesets_sel)
+#' gs.cl <- gm_clust(genesets_sel)
+#' \dontrun{gm_enrichreport(genesets_sel, gs.cl)}
 #'
 gm_enrichreport <- function(df,
                             hc,
@@ -47,10 +52,10 @@ gm_enrichreport <- function(df,
 
   for(i in 1:length(unique(clust.groups$Cluster))){
 
-    cgw[[i]] <- ggplot(clust.wc %>% filter(Cluster == i),
-                       aes(label=monogram,
-                           size=n,
-                           col = Enrichment))+
+    cgw[[i]] <- ggplot(clust.wc %>% filter(.data$Cluster == i),
+                       aes(label = .data$monogram,
+                           size = .data$n,
+                           col = .data$Enrichment))+
       ggwordcloud::geom_text_wordcloud_area(eccentricity = 1,
                                area_corr_power = 1) +
       scale_size_area(max_size = 8)+ #max size the biggest word can have
@@ -72,10 +77,10 @@ gm_enrichreport <- function(df,
 
   for(i in 1:length(unique(clust.groups$Cluster))){
 
-    cgc[[i]] <- ggplot(clust.lead %>% filter(Cluster == i),
-                              aes(x=reorder(lead_token, n),
-                                  y=n,
-                                  fill = Enrichment))+
+    cgc[[i]] <- ggplot(clust.lead %>% filter(.data$Cluster == i),
+                              aes(x = stats::reorder(.data$lead_token, .data$n),
+                                  y = .data$n,
+                                  fill = .data$Enrichment))+
       geom_bar(stat = 'identity') +
       ylim(0,max(clust.lead$n) + 1)+
       coord_flip()+

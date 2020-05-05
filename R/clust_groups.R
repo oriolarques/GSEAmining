@@ -9,7 +9,7 @@
 #' of each gene set separated by '/'.
 #' @param hc The output of gm_clust, which is an hclust class object.
 #'
-#' @return
+#' @return A data.frame containing the cluster each gene set belongs to.
 #' @export
 #'
 #'
@@ -19,7 +19,7 @@ clust_groups <- function(df,
   # Get the cluster groups from  gm_clust object ------------------------------
   clust_groups <- data.frame(Cluster=cutree(hc, h = 0.999)) %>%
     rownames_to_column('ID') %>%
-    arrange(Cluster) %>%
+    arrange(.data$Cluster) %>%
     left_join(df, by='ID')
 
 }

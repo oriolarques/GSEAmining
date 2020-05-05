@@ -3,7 +3,8 @@
 #' origin of the gene set. Additionally it eliminates words that do not add
 #' a lot of significance such as prepositions or adverbs among others.
 #'
-#' #' @return
+#' @return Returns a tibble with 2 variables.
+#'
 #' @export
 #'
 #'
