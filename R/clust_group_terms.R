@@ -6,7 +6,7 @@
 #'
 #' @param cg A data frame output from the GSEAmining cluster_groups function.
 #'
-#' @return  A tibble with four variables (Cluster, Enrichment, monogram, n)
+#' @return  A tibble with four variables (Cluster, Enrichment, monogram, n).
 #'
 #' @export
 #'

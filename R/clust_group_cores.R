@@ -9,7 +9,7 @@
 #' @param top An integer to choose the top most enriched genes to plot per
 #' cluster. The default parameter are the top 3.
 #'
-#' @return A tibble with four variables (Cluster, Enrichment, lead_token, n)
+#' @return A tibble with four variables (Cluster, Enrichment, lead_token, n).
 #'
 #' @export
 #'

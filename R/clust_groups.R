@@ -10,6 +10,7 @@
 #' @param hc The output of gm_clust, which is an hclust class object.
 #'
 #' @return A data.frame containing the cluster each gene set belongs to.
+#'
 #' @export
 #'
 #'
