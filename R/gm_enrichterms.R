@@ -36,7 +36,7 @@ gm_enrichterms <- function(df,
                            col_pos = 'red',
                            col_neg = 'blue') {
 
-  stopifnot(is.data.frame(df) | !is(hc, 'hclust'))
+  stopifnot(is.data.frame(df) | methods::is(hc, 'hclust'))
 
   # Get the cluster groups from  gm_clust object ------------------------------
   clust.groups <- clust_groups(df, hc)

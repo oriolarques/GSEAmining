@@ -35,7 +35,8 @@ Imports:
     rlang,
     grDevices,
     graphics,
-    stats
+    stats,
+    methods
 Depends: 
     R (>= 4.0)
 Suggests: 

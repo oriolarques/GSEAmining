@@ -36,7 +36,7 @@ gm_enrichreport <- function(df,
                             top = 3,
                             output = 'gm_report') {
 
-  stopifnot(is.data.frame(df) | !is(hc, 'hclust'))
+  stopifnot(is.data.frame(df) | methods::is(hc, 'hclust'))
 
   # 1. Get the cluster groups from  gm_clust object ---------------------------
   clust.groups <- clust_groups(df, hc)

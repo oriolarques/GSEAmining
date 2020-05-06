@@ -25,8 +25,8 @@ gm_filter <- function(df,
                       neg_NES = NULL,
                       pos_NES = NULL) {
   df %>%
-    dplyr::arrange(desc(NES)) %>%
-    dplyr::filter((p.adjust < p.adj & NES < - neg_NES) |
-                    (p.adjust < p.adj & NES > pos_NES)) %>%
-    dplyr::select(ID, NES, p.adjust, core_enrichment)
+    dplyr::arrange(desc(.data$NES)) %>%
+    dplyr::filter((.data$p.adjust < p.adj & .data$NES < - neg_NES) |
+                    (.data$p.adjust < p.adj & .data$NES > pos_NES)) %>%
+    dplyr::select(.data$ID, .data$NES, .data$p.adjust, .data$core_enrichment)
 }

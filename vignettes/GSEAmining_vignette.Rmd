@@ -61,7 +61,6 @@ library(devtools)
 devtools::install_github("oriolarques/GSEAmining")
 ```
 
-
 # Input data format: gm_filter
 By default GSEAmining is designed to accept the resuls of the GSEA function
 from the [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) 
@@ -100,8 +99,6 @@ gs.filt <- gm_filter(genesets_sel,
                           neg_NES = 2.6, 
                           pos_NES = 2)
 ```
-
-
 
 # Clustering
 ## gm_clust: Creation of a gm_clust object

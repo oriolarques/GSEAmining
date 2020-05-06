@@ -27,6 +27,7 @@
 #'
 #' @import tibble
 #' @import dendextend
+#' @importFrom methods is
 #'
 #' @examples
 #' data(genesets_sel)
@@ -41,7 +42,7 @@ gm_dendplot <- function(df,
                         rect = TRUE,
                         rect_len = 2) {
 
-  stopifnot(is.data.frame(df) | !is(hc, 'hclust'))
+  stopifnot(is.data.frame(df) | methods::is(hc, 'hclust'))
 
   # Convert hc in a dendrogram object to be visualized by dendextend
   dend <- hc %>% stats::as.dendrogram()
