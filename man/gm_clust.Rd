@@ -7,19 +7,21 @@
 gm_clust(df)
 }
 \arguments{
-\item{df}{Data frame that contains at least an ID column for the gene set
-names and a core_enrichment column containing the genes in the leading edge
-of each gene set separated by '/'.}
+\item{df}{Data frame that contains at least three columns: an ID column for
+the gene set names, a NES column with the normalized enrichment score and a
+core_enrichment column containing the genes in the leading edge of each
+gene set separated by '/'.}
 }
 \value{
 An object of class hclust that contains the clustering of the gene
-sets by the core enriched genes.
+sets by the core enriched genes.First a distance matrix is calculated
+using the 'binary' method and then a cluster with the 'complete' method is
+created.
 }
 \description{
-From the results of GSEA analysis, a data frame:
-1. Tokenizes the core-enrichment column.
-2. Cast the new table into a matrix.
-3. Returns and hclust object.
+Takes the output of gm_filter or a data frame that with the
+results of GSEA analysis and returns and hclust object that can be plotted
+using the gm_dendplot function.
 }
 \examples{
 data(genesets_sel)

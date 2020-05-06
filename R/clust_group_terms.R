@@ -10,6 +10,12 @@
 #'
 #' @export
 #'
+#' @examples
+#' data(genesets_sel)
+#' gs.cl <- gm_clust(genesets_sel)
+#' clust.groups <- clust_groups(genesets_sel, gs.cl)
+#' clust.groups.wordcloud <- clust_group_terms(clust.groups)
+#'
 clust_group_terms <- function(cg) {
   # Obtain the terms of each gene set -----------------------------------------
   stop.words <- stop_words()

@@ -13,11 +13,18 @@ clust_group_cores(cg, top = 3)
 cluster. The default parameter are the top 3.}
 }
 \value{
-A tibble with four variables (Cluster, Enrichment, lead_token, n)
+A tibble with four variables (Cluster, Enrichment, lead_token, n).
 }
 \description{
 Takes the output of clust_groups, a data frame , and process
 it to obtain the enrichment of genes in the core enrichment (or leading
 edge analysis) within each cluster. The output is used in the functions
 gm_enrichcores and gm_enrichreport.
+}
+\examples{
+data(genesets_sel)
+gs.cl <- gm_clust(genesets_sel)
+clust.groups <- clust_groups(genesets_sel, gs.cl)
+clust.lead <- clust_group_cores(clust.groups, top = 3)
+
 }

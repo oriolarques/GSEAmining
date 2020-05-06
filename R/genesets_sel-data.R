@@ -10,7 +10,13 @@
 #'
 #' @usage data(genesets_sel)
 #'
-#' @format An object of class data.frame.
+#' @format An object of class data.frame with 52 observations and 4 variables:
+#' \describe{
+#'     \item{ID}{Name of the gene set}
+#'     \item{NES}{Normalized Enrichment Score}
+#'     \item{p.adjust}{False discovery rate}
+#'     \item{core_enrichment}{Genes that are in the leading edge subset}
+#' }
 #'
 #' @references Arqués et al. Clinical Cancer Research. 2016 Feb 1;22(3):644-56.
 #' doi: 10.1158/1078-0432.CCR-14-3081. Epub 2015 Jul 29.

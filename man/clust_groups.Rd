@@ -7,9 +7,10 @@
 clust_groups(df, hc)
 }
 \arguments{
-\item{df}{Data frame that contains at least an ID column for the gene set
-names and a core_enrichment column containing the genes in the leading edge
-of each gene set separated by '/'.}
+\item{df}{Data frame that contains at least three columns: an ID column for
+the gene set names, a NES column with the normalized enrichment score and a
+core_enrichment column containing the genes in the leading edge of each
+gene set separated by '/'.}
 
 \item{hc}{The output of gm_clust, which is an hclust class object.}
 }
@@ -20,4 +21,10 @@ A data.frame containing the cluster each gene set belongs to.
 Takes the output of gm_clust, which is an hclust class object,
 and returns a data frame that will be used in the rest of GSEAmining
 functions gm_enrichreport, gm_enrichterms and gm_enrichcores.
+}
+\examples{
+data(genesets_sel)
+gs.cl <- gm_clust(genesets_sel)
+clust.groups <- clust_groups(genesets_sel, gs.cl)
+
 }

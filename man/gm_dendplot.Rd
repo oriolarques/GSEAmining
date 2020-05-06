@@ -15,9 +15,10 @@ gm_dendplot(
 )
 }
 \arguments{
-\item{df}{Data frame that contains at least an ID column for the gene set
-names and a core_enrichment column containing the genes in the leading edge
-of each gene set separated by '/'.}
+\item{df}{Data frame that contains at least three columns: an ID column for
+the gene set names, a NES column with the normalized enrichment score and a
+core_enrichment column containing the genes in the leading edge of each
+gene set separated by '/'.}
 
 \item{hc}{The output of gm_clust, which is an hclust class object.}
 
