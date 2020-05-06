@@ -13,6 +13,12 @@
 #'
 #' @export
 #'
+#' @examples
+#' data(genesets_sel)
+#' gs.cl <- gm_clust(genesets_sel)
+#' clust.groups <- clust_groups(genesets_sel, gs.cl)
+#' clust.lead <- clust_group_cores(clust.groups, top = 3)
+#'
 clust_group_cores <- function(cg,
                               top = 3) {
   # Obtain core enrichment terms of each gene set -----------------------------

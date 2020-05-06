@@ -3,9 +3,10 @@
 #' @description Takes the output of gm_clust, which is an hclust class object,
 #' and plots the dendrogram using the dendextend package.
 #'
-#' @param df Data frame that contains at least an ID column for the gene set
-#' names and a core_enrichment column containing the genes in the leading edge
-#' of each gene set separated by '/'.
+#' @param df Data frame that contains at least three columns: an ID column for
+#' the gene set names, a NES column with the normalized enrichment score and a
+#' core_enrichment column containing the genes in the leading edge of each
+#' gene set separated by '/'.
 #' @param hc The output of gm_clust, which is an hclust class object.
 #' @param col_pos Color to represent the positively enriched gene sets. Default
 #' is red.
@@ -40,7 +41,7 @@ gm_dendplot <- function(df,
                         rect = TRUE,
                         rect_len = 2) {
 
-  stopifnot(is.data.frame(df) | class(hc) != 'hclust')
+  stopifnot(is.data.frame(df) | !is(hc, 'hclust'))
 
   # Convert hc in a dendrogram object to be visualized by dendextend
   dend <- hc %>% stats::as.dendrogram()
@@ -90,7 +91,7 @@ gm_dendplot <- function(df,
     set('labels_col', dend_label_col) %>%
     set('branches_k_color', value = dend_clust_col$color,
         k = length(dend_clust_col[,1])) %>%
-    plot(horiz = T)
+    plot(horiz = TRUE)
 
   # Add rectangles to differentiate better the clusters -----------------------
   if(rect == TRUE){

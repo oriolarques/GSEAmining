@@ -5,9 +5,10 @@
 #' genes in gene sets for each cluster. The results of each cluster are plotted
 #' in an independent page.
 #'
-#' @param df Data frame that contains at least an ID column for the gene set
-#' names and a core_enrichment column containing the genes in the leading edge
-#' of each gene set separated by '/'.
+#' @param df Data frame that contains at least three columns: an ID column for
+#' the gene set names, a NES column with the normalized enrichment score and a
+#' core_enrichment column containing the genes in the leading edge of each
+#' gene set separated by '/'.
 #' @param hc The output of gm_clust, which is an hclust class object.
 #' @param col_pos Color to represent positively enriched gene sets. Default
 #' is red.
@@ -18,6 +19,7 @@
 #' @param output A string to name the output pdf file.
 #'
 #' @return  Generates a pdf file.
+#'
 #' @export
 #'
 #' @importFrom gridExtra marrangeGrob
@@ -34,7 +36,7 @@ gm_enrichreport <- function(df,
                             top = 3,
                             output = 'gm_report') {
 
-  stopifnot(is.data.frame(df) | class(hc) != 'hclust')
+  stopifnot(is.data.frame(df) | !is(hc, 'hclust'))
 
   # 1. Get the cluster groups from  gm_clust object ---------------------------
   clust.groups <- clust_groups(df, hc)
@@ -50,7 +52,7 @@ gm_enrichreport <- function(df,
 
   cgw <- list() # cgw: cluster.groups.wordclouds
 
-  for(i in 1:length(unique(clust.groups$Cluster))){
+  for(i in seq_along(unique(clust.groups$Cluster))){
 
     cgw[[i]] <- ggplot(clust.wc %>% filter(.data$Cluster == i),
                        aes(label = .data$monogram,
@@ -75,7 +77,7 @@ gm_enrichreport <- function(df,
   # Create a list containing ggplot barplots for core enrichment
   cgc <- list() # cgc: cluster.groups.core
 
-  for(i in 1:length(unique(clust.groups$Cluster))){
+  for(i in seq_along(unique(clust.groups$Cluster))){
 
     cgc[[i]] <- ggplot(clust.lead %>% filter(.data$Cluster == i),
                               aes(x = stats::reorder(.data$lead_token, .data$n),

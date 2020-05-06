@@ -5,7 +5,13 @@
 \alias{genesets_sel}
 \title{Selected gene sets as test}
 \format{
-An object of class data.frame.
+An object of class data.frame with 52 observations and 4 variables:
+\describe{
+    \item{ID}{Name of the gene set}
+    \item{NES}{Normalized Enrichment Score}
+    \item{p.adjust}{False discovery rate}
+    \item{core_enrichment}{Genes that are in the leading edge subset}
+}
 }
 \source{
 \href{https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2446/}{ArrayExpress}

@@ -10,10 +10,17 @@ clust_group_terms(cg)
 \item{cg}{A data frame output from the GSEAmining cluster_groups function.}
 }
 \value{
-A tibble with four variables (Cluster, Enrichment, monogram, n)
+A tibble with four variables (Cluster, Enrichment, monogram, n).
 }
 \description{
 Takes the output of clust_groups, a data frame , and process
 it to obtain the enrichment of terms in gene sets names within each cluster.
 The output is used in the functions gm_enrichterms and gm_enrichreport.
+}
+\examples{
+data(genesets_sel)
+gs.cl <- gm_clust(genesets_sel)
+clust.groups <- clust_groups(genesets_sel, gs.cl)
+clust.groups.wordcloud <- clust_group_terms(clust.groups)
+
 }

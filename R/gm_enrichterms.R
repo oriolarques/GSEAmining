@@ -5,9 +5,10 @@
 #' either separate enrichments by clusters or plot them together in a single
 #' plot.
 #'
-#' @param df Data frame that contains at least an ID column for the gene set
-#' names and a core_enrichment column containing the genes in the leading edge
-#' of each gene set separated by '/'.
+#' @param df Data frame that contains at least three columns: an ID column for
+#' the gene set names, a NES column with the normalized enrichment score and a
+#' core_enrichment column containing the genes in the leading edge of each
+#' gene set separated by '/'.
 #' @param hc The output of gm_clust, which is an hclust class object.
 #' @param clust A logical value indicating if wordclouds should be separated by
 #' clusters or not. Default value is TRUE.
@@ -35,7 +36,7 @@ gm_enrichterms <- function(df,
                            col_pos = 'red',
                            col_neg = 'blue') {
 
-  stopifnot(is.data.frame(df) | class(hc) != 'hclust')
+  stopifnot(is.data.frame(df) | !is(hc, 'hclust'))
 
   # Get the cluster groups from  gm_clust object ------------------------------
   clust.groups <- clust_groups(df, hc)
