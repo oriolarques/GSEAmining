@@ -44,4 +44,4 @@ Suggests:
     rmarkdown, 
     BiocStyle
 VignetteBuilder: knitr
-biocViews: Clustering, Visualization
+biocViews: GeneSetEnrichment, Clustering, Visualization
