@@ -8,8 +8,10 @@
 #' gene set separated by '/'.
 #' @param p.adj An integer to set the limit of the adjusted p-value (or false
 #' discovery rate, FDR). Default value is 0.05
-#' @param neg_NES An integer to set the limit of negative NES. Default is NULL.
-#' @param pos_NES An integer to set the limit of positive NES. Default is NULL.
+#' @param neg_NES A positive integer to set the limit of negative NES. Default
+#' is 1.
+#' @param pos_NES A positive integer to set the limit of positive NES. Default
+#' is 1.
 #'
 #' @return A data frame.
 #' @export
@@ -22,8 +24,8 @@
 #'
 gm_filter <- function(df,
                       p.adj = 0.05,
-                      neg_NES = NULL,
-                      pos_NES = NULL) {
+                      neg_NES = 1,
+                      pos_NES = 1) {
   df %>%
     dplyr::arrange(desc(.data$NES)) %>%
     dplyr::filter((.data$p.adjust < p.adj & .data$NES < - neg_NES) |

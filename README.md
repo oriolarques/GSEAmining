@@ -35,3 +35,12 @@ identify and represent for each cluster:
 In each case, positive and negative enrichments are shown in different colors 
 so it is easy to distinguish biological processes or genes that may be of 
 interest in that particular study.
+
+
+
+# Installation
+```
+install.packages("devtools") # If you have not installed "devtools" package
+library(devtools)
+devtools::install_github("oriolarques/GSEAmining")
+```

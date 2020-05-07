@@ -4,7 +4,7 @@
 \alias{gm_filter}
 \title{gm_filter: GSEAmining GSEA output filter}
 \usage{
-gm_filter(df, p.adj = 0.05, neg_NES = NULL, pos_NES = NULL)
+gm_filter(df, p.adj = 0.05, neg_NES = 1, pos_NES = 1)
 }
 \arguments{
 \item{df}{Data frame that contains at least three columns: an ID column for
@@ -15,9 +15,11 @@ gene set separated by '/'.}
 \item{p.adj}{An integer to set the limit of the adjusted p-value (or false
 discovery rate, FDR). Default value is 0.05}
 
-\item{neg_NES}{An integer to set the limit of negative NES. Default is NULL.}
+\item{neg_NES}{A positive integer to set the limit of negative NES. Default
+is 1.}
 
-\item{pos_NES}{An integer to set the limit of positive NES. Default is NULL.}
+\item{pos_NES}{A positive integer to set the limit of positive NES. Default
+is 1.}
 }
 \value{
 A data frame.
