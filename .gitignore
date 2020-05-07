@@ -2,4 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+GSEAmining.Rproj
+DS_Store
 inst/doc
