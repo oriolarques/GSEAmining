@@ -110,7 +110,7 @@ rectangle to facilitate the differentiation of all the clusters.
 gm_dendplot(gs.filt, 
             gs.cl)
 ```
-[dendplot](vignettes/dendplot.png)
+![dendplot](/vignettes/dendplot.png)
 
 It is possible to tune the height of the dendrogram, the colors for the 
 enrichment and the use of rectangles (and their sizes) for highlighting 
@@ -126,7 +126,7 @@ gm_dendplot(gs.filt,
             rect_len = 2)
 
 ```
-[dendplot2](vignettes/dendplot2.png)
+![dendplot2](/vignettes/dendplot2.png)
 
 # Evaluation of gene sets enriched terms by cluster
 To start getting an idea of what kind of biological processes are represented
@@ -140,7 +140,7 @@ in red or in blue respectively and two ploting options are available:
 ```
 gm_enrichterms(gs.filt, gs.cl)
 ```
-[enrichterms](vignettes/enrichterms.png)
+![enrichterms](/vignettes/enrichterms.png)
 
 - Without clustering:
 ```
@@ -150,7 +150,7 @@ gm_enrichterms(gs.filt,
                col_pos = 'chocolate3',
                col_neg = 'skyblue3')
 ```
-[enrichterms2](vignettes/enrichterms2.png)
+![enrichterms2](/vignettes/enrichterms2.png)
 
 # Evaluation of gene enrichment in leading edge subsets by clusters
 As for the gene set terms, it is also possible to evaluate which are the most
@@ -162,7 +162,7 @@ representation is shown as bar plots following the same options as in
 ```
 gm_enrichcores(gs.filt, gs.cl)
 ```
-[enrichcores](vignettes/enrichcores.png)
+![enrichcores](/vignettes/enrichcores.png)
 
 Additionally, this function allows the possibility to
 decide the number of the most top genes that will be plotted using the parameter
