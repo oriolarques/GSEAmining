@@ -63,27 +63,28 @@ gm_dendplot <- function(df,
   #   Keep only the value of color
   dend_label_col <- dend_label_col$color
 
-  # Color of the clusters:
+  # Color of the clusters -----------------------------------------------------
   #   Red=positively enriched / Blue = negatively enriched
   #   Identify to which cluster each geneset belongs to
   dend_clust_col <- data.frame(cluster=cutree(hc, h = 0.999))
 
-  #   Get rownames to geneset column ------------------------------------------
+  #   Get rownames to geneset column
   dend_clust_col <- dend_clust_col %>%
     rownames_to_column('geneset')
 
-  # Join the cluster column to the geneset table ------------------------------
+  # Join the cluster column to the geneset table
   dend_clust_col <- dend_clust_col%>%
     left_join(df, by=c('geneset'='ID')) %>%
     select(.data$geneset, .data$NES, .data$cluster) %>%
     # Define the color that each geneset has depending on NES
-    mutate(color = ifelse(.data$NES > 0, col_pos, col_neg)) %>%
-    select(.data$cluster, .data$color) %>%
+    mutate(color = ifelse(.data$NES > 0, col_pos, col_neg))
+
+  # Get the order of the genesets in the cluster
+  dend_clust_col <- dend_clust_col[match(dend_order,
+                                           dend_clust_col$geneset),] %>%
     # Since positive and negative genesets cluster together eliminate duplicates
-    unique() %>%
-    # Sort the rows by cluster in descendant order
-    # That's how dendextend reads clusters
-    arrange(desc(.data$cluster))
+    select(.data$cluster, .data$color) %>%
+    unique()
 
   # Plot the clusters   -------------------------------------------------------
   graphics::par(mar = c(5.1,2,2,dend_len)) # set the margins
