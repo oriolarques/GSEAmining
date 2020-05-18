@@ -79,6 +79,7 @@ gm_dendplot <- function(df,
     # Define the color that each geneset has depending on NES
     mutate(color = ifelse(.data$NES > 0, col_pos, col_neg))
 
+
   # Get the order of the genesets in the cluster
   dend_clust_col <- dend_clust_col[match(dend_order,
                                            dend_clust_col$geneset),] %>%
