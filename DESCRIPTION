@@ -1,7 +1,7 @@
 Package: GSEAmining
 Type: Package
 Title: Make Sense to Gene Set Enrichment Analysis Outputs
-Version: 0.99.15
+Version: 0.99.16
 Author: Oriol Arqués
 Maintainer: Oriol Arqués <oriol.arques@gmail.com>
 Description: Gene Set Enrichment Analysis (GSEA) is a very powerful and 
@@ -42,6 +42,7 @@ Depends:
 Suggests: 
     knitr,
     rmarkdown, 
-    BiocStyle
+    BiocStyle,
+    clusterProfiler
 VignetteBuilder: knitr
 biocViews: GeneSetEnrichment, Clustering, Visualization

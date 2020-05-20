@@ -51,6 +51,50 @@ package. For more information about this function click
 [here](https://yulab-smu.github.io/clusterProfiler-book/chapter7.html). However,
 it is *not mandatory to use this package*.
 
+In this example the data corresponds to GSEA analysis of differential expressed 
+genes from treated versus control samples in 
+[HGPalmer-PDX-P30 experiment](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-2446/).
+Differential gene expression (tableTop) was obtained using the oligo and limma R 
+packages.
+
+- Generation of a geneList, which is a ranked list of all the genes, 
+for GSEA using clusterProfiler.
+
+```
+# A geneList contains three features:
+# 1.numeric vector: fold change or other type of numerical variable
+# 2.named vector: every number has a name, the corresponding gene ID
+# 3.sorted vector: number should be sorted in decreasing order
+tableTop_p30 <- as.data.frame(tableTop_p30)
+geneList = tableTop_p30[,2]
+names(geneList) = as.character(tableTop_p30[,1])
+```
+
+
+- Gmt files containing the different gene sets that will be analysed by GSEA. They
+can be downloaded from the
+[MSigDB](https://www.gsea-msigdb.org/gsea/downloads.jsp)
+
+```
+library(clusterProfiler)
+# Read the .gmt file from MSigDB
+gmtC2<- read.gmt("gmt files/c2.all.v7.1.symbols.gmt")
+gmtC5<- read.gmt('gmt files/c5.all.v7.1.symbols.gmt')
+gmtHALL <- read.gmt('gmt files/h.all.v7.1.symbols.gmt')
+
+# Merge all the gene sets
+gmt_all <- rbind(gmtC2, gmtC5, gmtHALL)
+```
+
+- Perform the GSEA.
+```
+GSEA_p30<-GSEA(geneList, TERM2GENE = gmt_all, nPerm = 1000, pvalueCutoff = 0.5)
+
+# Selection of gene sets with a specific thershold in terms of NES and p.adjust
+genesets_sel <- GSEA_p30@result
+```
+
+
 Data should be in a data.frame with, **at least** three columns labelled as 
 follows:
 
