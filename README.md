@@ -39,6 +39,16 @@ interest in that particular study.
 
 
 # Installation
+
+You can install `GSEAmining` from Bioconductor:
+```
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("GSEAmining")
+```
+
+Or directly from GitHub:
 ```
 install.packages("devtools") # If you have not installed "devtools" package
 library(devtools)

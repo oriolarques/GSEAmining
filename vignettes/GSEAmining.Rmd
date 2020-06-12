@@ -54,7 +54,15 @@ so it is easy to distinguish biological processes or genes that may be of
 interest in that particular study.
 
 # Installation
+You can install `GSEAmining` from Bioconductor:
+```{r, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
 
+BiocManager::install("GSEAmining")
+```
+
+Or directly from GitHub:
 ```{r, eval=FALSE}
 install.packages("devtools") # If you have not installed "devtools" package
 library(devtools)

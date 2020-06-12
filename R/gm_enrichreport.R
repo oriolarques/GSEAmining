@@ -25,7 +25,7 @@
 #' @importFrom gridExtra marrangeGrob
 #'
 #' @examples
-#' #' data(genesets_sel)
+#' data(genesets_sel)
 #' gs.cl <- gm_clust(genesets_sel)
 #' \dontrun{gm_enrichreport(genesets_sel, gs.cl)}
 #'
