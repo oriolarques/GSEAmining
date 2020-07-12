@@ -1,7 +1,7 @@
 Package: GSEAmining
 Type: Package
-Title: Make Biological sense of Gene Set Enrichment Analysis Outputs
-Version: 0.99.18
+Title: Make Biological Sense of Gene Set Enrichment Analysis Outputs
+Version: 0.99.19
 Authors@R: person("Oriol", "Arqués", email = "oriol.arques@gmail.com",
                   role = c("aut", "cre")) 
 Description: Gene Set Enrichment Analysis (GSEA) is a very powerful and 
