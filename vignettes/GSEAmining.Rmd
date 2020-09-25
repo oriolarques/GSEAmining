@@ -48,7 +48,7 @@ interest in that particular study.
 
 # Installation
 You can install `GSEAmining` from Bioconductor:
-```{r, eval=FALSE}
+```
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
@@ -56,7 +56,7 @@ BiocManager::install("GSEAmining")
 ```
 
 Or directly from GitHub:
-```{r, eval=FALSE}
+```
 install.packages("devtools") # If you have not installed "devtools" package
 library(devtools)
 devtools::install_github("oriolarques/GSEAmining")
@@ -77,7 +77,7 @@ packages.
 
 - Generation of a geneList, which is a ranked list of all the genes, 
 for GSEA using clusterProfiler.
-```{r, eval=FALSE}
+```
 # A geneList contains three features:
 # 1.numeric vector: fold change or other type of numerical variable
 # 2.named vector: every number has a name, the corresponding gene ID
@@ -90,7 +90,7 @@ names(geneList) = as.character(tableTop_p30[,1])
 - Gmt files containing the different gene sets that will be analysed by GSEA. They
 can be downloaded from the
 [MSigDB](https://www.gsea-msigdb.org/gsea/downloads.jsp)
-```{r, eval=FALSE}
+```
 library(clusterProfiler)
 # Read the .gmt file from MSigDB
 gmtC2<- read.gmt("gmt files/c2.all.v7.1.symbols.gmt")
@@ -102,7 +102,7 @@ gmt_all <- rbind(gmtC2, gmtC5, gmtHALL)
 ```
 
 - Perform the GSEA.
-```{r, eval=FALSE}
+```
 GSEA_p30<-GSEA(geneList, TERM2GENE = gmt_all, nPerm = 1000, pvalueCutoff = 0.5)
 
 # Selection of gene sets with a specific thershold in terms of NES and p.adjust
@@ -120,7 +120,7 @@ follows:
 - **core_enrichment**: Genes that appear in the leading edge subset of the gene
 set.
 
-```{r}
+```
 # Structure of the data included in the package
 data('genesets_sel', package = 'GSEAmining')
 tibble::glimpse(genesets_sel)
@@ -135,7 +135,7 @@ that it is better to filter the data for a better visualization.
 The `gm_filter()` function of GSEAmining allows this process to be very easy, 
 especially if the format of your data meets the aforementioned criteria.
 
-```{r}
+```
 library(GSEAmining)
 data("genesets_sel", package = 'GSEAmining')
 gs.filt <- gm_filter(genesets_sel, 
@@ -153,7 +153,7 @@ gm_filter. In the process, a distance matrix  is calculated using the
 *binary* method (from the `dist()` function in `stats`) and then a cluster with 
 the *complete* method (from `hclust()` function in `stats`) is created.
 
-```{r setup}
+```
 # Create an object that will contain the cluster of gene sets.
 gs.cl <- gm_clust(gs.filt)
 ```
@@ -165,16 +165,17 @@ positively or negatively enriched coloring them in red or blue respectively.
 Additionally by default the function will highlight every other cluster with a
 rectangle to facilitate the differentiation of all the clusters.
 
-```{r, fig.height = 7, fig.width = 7}
+```
 gm_dendplot(gs.filt, 
             gs.cl)
 ```
+![](dendplot.png)
 
 It is possible to tune the height of the dendrogram, the colors for the 
 enrichment and the use of rectangles (and their sizes) for highlighting 
 clusters.
 
-```{r, fig.height = 7, fig.width = 7}
+```
 gm_dendplot(gs.filt, 
             gs.cl, 
             col_pos = 'orange', 
@@ -182,8 +183,8 @@ gm_dendplot(gs.filt,
             rect = TRUE,
             dend_len = 20, 
             rect_len = 2)
-
 ```
+![](dendplot2.png)
 
 # Evaluation of gene sets enriched terms by cluster
 To start getting an idea of what kind of biological processes are represented
@@ -194,17 +195,20 @@ object created before. By default Positive or negative enrichment are colored
 in red or in blue respectively and two ploting options are available:
 
 - By cluster:
-```{r, message = FALSE, fig.height = 7, fig.width = 7}
+```
 gm_enrichterms(gs.filt, gs.cl)
 ```
+![](enrichterms.png)
+
 - Without clustering:
-```{r, message = FALSE, fig.height = 7, fig.width = 7}
+```
 gm_enrichterms(gs.filt, 
                gs.cl, 
                clust = FALSE,
                col_pos = 'chocolate3',
                col_neg = 'skyblue3')
 ```
+![](enrichterms2.png)
 
 # Evaluation of gene enrichment in leading edge subsets by clusters
 As for the gene set terms, it is also possible to evaluate which are the most
@@ -213,9 +217,10 @@ different clusters with the function `gm_enrichcores()`. In this case the
 representation is shown as bar plots following the same options as in
 `gm_enrichterms()` regarding colors and clustering the results. 
 
-```{r, message = FALSE, fig.height = 12, fig.width = 7.2}
+```
 gm_enrichcores(gs.filt, gs.cl)
 ```
+![](enrichcores.png)
 
 Additionally, this function allows the possibility to
 decide the number of the most top genes that will be plotted using the parameter
@@ -227,7 +232,7 @@ Finally, the `gm_enrichreport()` is a tool that generates a pdf file where each
 page contains both the terms word cloud and the leading edge bar plot for each of
 the different clusters in the gm_clust object. 
 
-```{r, eval=FALSE}
+```
 gm_enrichreport(gs.filt, gs.cl, output = 'gm_report')
 ```
 
@@ -236,7 +241,49 @@ default it will be called gm_report.pdf). As in the previous functions the
 colors and the number of top genes are also editable parameters of the function.
 
 # SessionInfo()
-```{r}
-sessionInfo()
 ```
-
+sessionInfo()
+#> R version 4.0.2 (2020-06-22)
+#> Platform: x86_64-pc-linux-gnu (64-bit)
+#> Running under: Ubuntu 18.04.4 LTS
+#> 
+#> Matrix products: default
+#> BLAS:   /home/biocbuild/bbs-3.12-bioc/R/lib/libRblas.so
+#> LAPACK: /home/biocbuild/bbs-3.12-bioc/R/lib/libRlapack.so
+#> 
+#> locale:
+#>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+#>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=C              
+#>  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+#>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+#>  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+#> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+#> 
+#> attached base packages:
+#> [1] stats     graphics  grDevices utils     datasets  methods   base     
+#> 
+#> other attached packages:
+#> [1] GSEAmining_0.99.21 BiocStyle_2.17.0  
+#> 
+#> loaded via a namespace (and not attached):
+#>  [1] tidyselect_1.1.0    xfun_0.15           slam_0.1-47        
+#>  [4] NLP_0.2-0           purrr_0.3.4         lattice_0.20-41    
+#>  [7] colorspace_1.4-1    vctrs_0.3.2         generics_0.0.2     
+#> [10] htmltools_0.5.0     SnowballC_0.7.0     viridisLite_0.3.0  
+#> [13] tidytext_0.2.5      yaml_2.2.1          utf8_1.1.4         
+#> [16] rlang_0.4.7         pillar_1.4.6        glue_1.4.1         
+#> [19] lifecycle_0.2.0     stringr_1.4.0       munsell_0.5.0      
+#> [22] gtable_0.3.0        evaluate_0.14       labeling_0.3       
+#> [25] ggwordcloud_0.5.0   knitr_1.29          tm_0.7-7           
+#> [28] parallel_4.0.2      fansi_0.4.1         tokenizers_0.2.1   
+#> [31] Rcpp_1.0.5          scales_1.1.1        BiocManager_1.30.10
+#> [34] magick_2.4.0        farver_2.0.3        gridExtra_2.3      
+#> [37] ggplot2_3.3.2       png_0.1-7           digest_0.6.25      
+#> [40] stringi_1.4.6       bookdown_0.20       dplyr_1.0.0        
+#> [43] grid_4.0.2          cli_2.0.2           tools_4.0.2        
+#> [46] magrittr_1.5        tibble_3.0.3        janeaustenr_0.1.5  
+#> [49] crayon_1.3.4        pkgconfig_2.0.3     dendextend_1.13.4  
+#> [52] ellipsis_0.3.1      Matrix_1.2-18       xml2_1.3.2         
+#> [55] assertthat_0.2.1    rmarkdown_2.3       viridis_0.5.1      
+#> [58] R6_2.4.1            compiler_4.0.2
+```
