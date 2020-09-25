@@ -1,7 +1,7 @@
 Package: GSEAmining
 Type: Package
 Title: Make Biological Sense of Gene Set Enrichment Analysis Outputs
-Version: 0.99.21
+Version: 0.99.22
 Authors@R: person("Oriol", "Arqués", email = "oriol.arques@gmail.com",
                   role = c("aut", "cre")) 
 Description: Gene Set Enrichment Analysis is a very powerful and interesting 
