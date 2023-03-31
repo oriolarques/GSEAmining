@@ -27,7 +27,11 @@ clust_group_cores <- function(cg,
     # separate the words of the core enrichment
     mutate(core_enrichment = str_replace_all(.data$core_enrichment,
                                              pattern='/',
-                                             replacement = ' ')) %>%
+                                             replacement = ' '),
+           # Modify '-' to '_' for genes such as those from HLA 
+           core_enrichment = str_replace_all(.data$core_enrichment,
+                                             pattern='-',
+                                             replacement = '_')) %>%
     # create gene word tokens (one row per word)
     tidytext::unnest_tokens(.data$lead_token,
                             .data$core_enrichment,
