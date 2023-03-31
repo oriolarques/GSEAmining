@@ -53,7 +53,7 @@ gm_enrichterms <- function(df,
     ggwordcloud::geom_text_wordcloud_area(eccentricity = 1,
                                           area_corr_power = 1,
                                           rm_outside = TRUE) +
-    scale_color_manual(values = c(col_neg, col_pos)) +
+    scale_color_manual(values = c('Neg' = col_neg, 'Pos' = col_pos)) +
     scale_size_area(max_size = 8) +
     theme_minimal() +
     theme(plot.title = element_text(hjust = 0.5),
