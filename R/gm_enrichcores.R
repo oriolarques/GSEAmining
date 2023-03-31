@@ -53,7 +53,7 @@ gm_enrichcores <- function(df,
                      fill = .data$Enrichment)) +
     geom_bar(stat = 'identity') +
     coord_flip() +
-    scale_fill_manual(values = c(col_neg, col_pos)) +
+    scale_fill_manual(values = c('Neg' = col_neg, 'Pos' = col_pos)) +
     scale_y_continuous(expand = c(0, 0)) +
     ylab('Num of Gene Appearances in Different Genesets') +
     theme_minimal() +
